@@ -1,0 +1,253 @@
+@import "tailwindcss";
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+@font-face {
+  font-family: Degular;
+  src: '/fonts/Degular-Medium.1d52003d.woff2' format('woff2');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Degular;
+  src: url('/fonts/Degular-Medium_Italic.c498295c.woff2') format('woff2');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Degular;
+  src: url('/fonts/Degular-Semibold.16f56c41.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Degular;
+  src: url('/fonts/Degular-Semibold_Italic.2bde356f.woff2') format('woff2');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Degular;
+  src: url('/fonts/Degular-Bold.8feeb002.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Degular;
+  src: url('/fonts/Degular-Bold_Italic.3f792451.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Degular Display';
+  src: url('/fonts/Degular_Display-Semibold.7a5a7d92.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Degular Display';
+  src: url('/fonts/Degular_Display-Semibold_Italic.b6c1d734.woff2') format('woff2');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Degular Display';
+  src: url('/fonts/Degular_Display-Bold.c82ad849.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Degular Display';
+  src: url('/fonts/Degular_Display-Bold_Italic.a57e5e22.woff2') format('woff2');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@layer base {
+  body {
+    font-family: 'Degular Display', system-ui, sans-serif;
+    font-weight: 600;
+  }
+}
+
+
+.linear-bg {
+  background: linear-gradient(139deg, #5C6670 2.33%, #131316 96.28%);
+}
+
+.bg_effect {
+  background: #EFF1F6;
+  opacity: 0.6;
+  filter: blur(0.4);
+}
+
+
+/* ************ calendar **************** */
+
+.input-picker>.input-picker--input {
+  padding: 18px 12px !important;
+  text-align: left !important;
+  font-family: 'degular', 'inter', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+}
+
+.input-picker>.input-picker--input:focus {
+  background-color: white !important;
+  border: solid 2px #131316 !important;
+}
+
+.is-ltr>div.header {
+  background-color: white;
+}
+
+.header-date {
+  color: black !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+}
+
+.header--btn {
+  color: black !important;
+  width: 10px !important;
+  margin-top: 10px !important;
+}
+
+.calender-modal {
+  margin-top: 5px !important;
+  padding: 12px !important;
+  width: 22.5rem !important;
+  border-radius: 12px !important;
+}
+
+.react-calendar-datetime-picker .daysList .daysList-day {
+  font-weight: 600 !important;
+  font-size: small !important;
+  color: #131316 !important;
+}
+
+.react-calendar-datetime-picker .daysList .is-selected-day {
+  background: #131316 !important;
+  color: white !important;
+  border: none !important;
+  border: transparent !important;
+}
+
+.react-calendar-datetime-picker .daysList .is-today {
+  box-shadow: inset 0 0 0 2px black !important;
+  background: #131316 !important;
+  color: white !important;
+}
+
+ul.daysList>li.daysList-day.is-disabled.is-next-month {
+  color: transparent !important;
+  background-color: transparent !important;
+}
+
+ul.daysList>li.daysList-day.is-disabled.is-prev-month {
+  color: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Fallback theme utilities (mirror tailwind theme.extend) */
+:root {
+  /* colors */
+  --grey-light: #EFF1F6;
+  --grey-soft: #56616B;
+  --grey-solid: #131316;
+
+  --green-soft: #E3FCF2;
+  --green-solid: #075132;
+
+  --red-soft: #961100;
+  --red-solid: #961100;
+
+  --yellow-solid: #A77A07;
+}
+
+/* Text color utilities */
+.text-grey-light { color: var(--grey-light) !important; }
+.text-grey-soft { color: var(--grey-soft); }
+.text-grey-solid { color: var(--grey-solid) !important; }
+
+.text-green-soft { color: var(--green-soft) !important; }
+.text-green-solid { color: var(--green-solid) !important; }
+
+.text-red-soft { color: var(--red-soft) !important; }
+.text-red-solid { color: var(--red-solid) !important; }
+
+.text-yellow-solid { color: var(--yellow-solid) !important; }
+
+/* Background color utilities */
+.bg-grey-light { background-color: var(--grey-light) !important; }
+.bg-grey-soft { background-color: var(--grey-soft) !important; }
+.bg-grey-solid { background-color: var(--grey-solid) !important; }
+
+.bg-green-soft { background-color: var(--green-soft) !important; }
+.bg-green-solid { background-color: var(--green-solid) !important; }
+
+.bg-red-soft { background-color: var(--red-soft) !important; }
+.bg-red-solid { background-color: var(--red-solid) !important; }
+
+.bg-yellow-solid { background-color: var(--yellow-solid) !important; }
+
+/* Background-image utilities (radial / conic gradients) */
+.bg-gradient-radial { background-image: radial-gradient(var(--tw-gradient-stops)) !important; }
+.bg-gradient-conic { background-image: conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops)) !important; }
+
+.animate-slide-in-right:hover {
+  background-color: var(--grey-solid) !important; 
+  color: var(--grey-light) !important;  
+}
+
+.bg-grey-light:hover {
+  background-color: var(--grey-light) !important; 
+  /* color: var(--grey-solid) !important;   */
+}
+
+/* Font family utility */
+.font-degular { font-family: 'Degular', 'sa Linear', sans-serif !important; }
+
+/* Animation & keyframes (mirror tailwind animation name) */
+@keyframes slide-in-right {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(0); }
+}
+.animate-slide-in-right {
+  animation: slide-in-right 0.5s ease-in-out !important;
+}
+
+/* small helper to expose tailwind-style gradient stop variable */
+:root { --tw-gradient-stops: var(--tw-gradient-from, rgba(0,0,0,0)) 0%, var(--tw-gradient-to, rgba(0,0,0,0)) 100%; }
+
+/* Make sure button-like elements keep readable defaults */
+.text-degular-regular { font-family: 'Degular Display', system-ui, sans-serif; }
+
+/* End fallback theme utilities */
