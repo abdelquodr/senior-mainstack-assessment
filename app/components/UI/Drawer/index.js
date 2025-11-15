@@ -49,6 +49,45 @@ function Draw({ closeDrawer, isActive }) {
     return Number.isNaN(d.getTime()) ? null : d
   }
 
+  function dateToPickerObj(d) {
+    if (!d) return null
+    const dt = d instanceof Date ? d : new Date(d)
+    if (Number.isNaN(dt.getTime())) return null
+    return { year: dt.getFullYear(), month: dt.getMonth() + 1, day: dt.getDate() }
+  }
+
+  function setPresetRange(preset) {
+    const today = new Date()
+    let start = null
+    let end = null
+
+    switch (preset) {
+      case 'today':
+        start = new Date(today.getFullYear(), today.getMonth(), today.getDate())
+        end = start
+        break
+      case 'last7':
+        end = new Date(today.getFullYear(), today.getMonth(), today.getDate())
+        start = new Date(end)
+        start.setDate(end.getDate() - 6) // last 7 days inclusive
+        break
+      case 'thisMonth':
+        start = new Date(today.getFullYear(), today.getMonth(), 1)
+        end = new Date(today.getFullYear(), today.getMonth(), new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate())
+        break
+      case 'last3months':
+        end = new Date(today.getFullYear(), today.getMonth(), today.getDate())
+        start = new Date(end)
+        start.setMonth(end.getMonth() - 3)
+        break
+      default:
+        return
+    }
+
+    setStartDate(dateToPickerObj(start))
+    setEndDate(dateToPickerObj(end))
+  }
+
   const handleApply = () => {
     if (!isFormData) return
 
@@ -60,13 +99,23 @@ function Draw({ closeDrawer, isActive }) {
       const tType = tranx?.metadata?.type
       const tStatus = tranx?.status
 
-      if (!filterFormDataType.includes(tType)) return false
-      if (!filterFormDataStatus.includes(tStatus)) return false
 
+      //cfilter with array list of types
+      if (filterFormDataType.length > 0 && !filterFormDataType.includes(tType)) return false
+      if (filterFormDataStatus.length > 0 && !filterFormDataStatus.includes(tStatus)) return false
+      
+      // filter for date range if provided ==> handle formats like "2022-03-02", timestamps, or date objects
       if ((start || end) && tranx?.date) {
-        const tx = new Date(tranx.date)
-        if (start && tx < start) return false
-        if (end && tx > end) return false
+        const txDateObj = toDateObject(tranx.date)
+        if (!txDateObj) return false
+
+        // normalize to date-only (midnight) to avoid timezone/time-of-day mismatches
+        const tx = new Date(txDateObj.getFullYear(), txDateObj.getMonth(), txDateObj.getDate())
+        const startNorm = start ? new Date(start.getFullYear(), start.getMonth(), start.getDate()) : null
+        const endNorm = end ? new Date(end.getFullYear(), end.getMonth(), end.getDate()) : null
+
+        if (startNorm && tx < startNorm) return false
+        if (endNorm && tx > endNorm) return false
       }
 
       return true
@@ -78,6 +127,9 @@ function Draw({ closeDrawer, isActive }) {
 
   const handleClear = () => {
     dispatch({ type: 'CLEAR_FILTERS' })
+    // reset local date pickers
+    setStartDate(null)
+    setEndDate(null)
   }
 
   return (
@@ -91,10 +143,10 @@ function Draw({ closeDrawer, isActive }) {
         </div>
 
         <div className='flex space-x-1 py-8'>
-          <Button label='Today' type='outlined' className='px-3 py-2 whitespace-nowrap text-xs font-normal' />
-          <Button label='Last 7 days' type='outlined' className='px-3 py-2 whitespace-nowrap text-xs font-normal' />
-          <Button label='This month' type='outlined' className='px-3 py-2 whitespace-nowrap text-xs font-normal' />
-          <Button label='Last 3 months' type='outlined' className='px-3 py-2 whitespace-nowrap text-xs font-normal' />
+          <Button onClick={() => setPresetRange('today')} label='Today' type='outlined' className='px-3 py-2 whitespace-nowrap text-xs font-normal' />
+          <Button onClick={() => setPresetRange('last7')} label='Last 7 days' type='outlined' className='px-3 py-2 whitespace-nowrap text-xs font-normal' />
+          <Button onClick={() => setPresetRange('thisMonth')} label='This month' type='outlined' className='px-3 py-2 whitespace-nowrap text-xs font-normal' />
+          <Button onClick={() => setPresetRange('last3months')} label='Last 3 months' type='outlined' className='px-3 py-2 whitespace-nowrap text-xs font-normal' />
         </div>
 
         <div>

@@ -57,5 +57,3 @@ export default {
   getTransactions,
 }
 
-
-console.log("USER DATA", await getUser(), BASE_URL);

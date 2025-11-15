@@ -43,8 +43,8 @@ export default function Input({header, labels, type}) {
         </div>
         <div onBlur={handleOnBlur} className={`absolute bg-white shadow-md top-full z-20 w-full lef-0 rounded max-h-[300px] overflow-y-auto ${ !openSelect && 'hidden' }`}>
           <div role='listbox' className='flex flex-col w-full px-4 py-3'> 
-            {labels?.map((label) => (
-              <Checkbox key={label} textLabel={label} getValue={handleCheckboxValue} />
+            {labels?.map((label, key) => (
+              <Checkbox key={key} textLabel={label} getValue={handleCheckboxValue} />
             ))}
           </div>
         </div>

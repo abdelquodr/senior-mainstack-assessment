@@ -146,6 +146,4 @@ function useAppState() {
   return context
 }
 
-
-console.log("AppStateProvider loaded", initialState);
 export { AppStateProvider, appStateReducer, useAppState, AppStateContext }
